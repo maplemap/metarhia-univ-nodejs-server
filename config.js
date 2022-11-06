@@ -23,5 +23,5 @@ module.exports = {
 			displayErrors: false,
 		}
 	},
-	transport: 'http'
+	transport: 'ws'
 }
