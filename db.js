@@ -11,9 +11,6 @@ const crud = (pool) => (table) => ({
   async read(id, fields = ['*']) {
     const names = fields.join(', ');
     const sql = `SELECT ${names} FROM ${table}`;
-    console.log('fields', fields);
-    console.log('id', id);
-    console.log('sql', sql);
     if (!id) return this.query(sql);
     return this.query(`${sql} WHERE id = $1`, [id]);
   },
