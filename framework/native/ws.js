@@ -1,12 +1,12 @@
 'use strict';
 
 const { Server } = require('ws');
-const console = require('./logger.js');
+const console = require('../../logger.js');
 
 module.exports = (routing, port) => {
   const ws = new Server({ port });
 
-  ws.on('connection', (connection, req) => {
+  ws.on('connection', (connection, req, callback) => {
     const ip = req.socket.remoteAddress;
     connection.on('message', async (message) => {
       const obj = JSON.parse(message);
@@ -26,7 +26,7 @@ module.exports = (routing, port) => {
         connection.send('"Server error"', { binary: false });
       }
     });
-  });
 
-  console.log(`API on port ${port}`);
+    callback();
+  });
 };

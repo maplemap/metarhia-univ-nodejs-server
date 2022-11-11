@@ -3,6 +3,7 @@
 const http = require('node:http');
 const path = require('node:path');
 const fs = require('node:fs');
+const console = require('./logger.js');
 
 module.exports = (root, port) => {
   http.createServer(async (req, res) => {
@@ -17,5 +18,5 @@ module.exports = (root, port) => {
     }
   }).listen(port);
 
-  console.log(`Static on port ${port}`);
+  console.log(`Static server was running on port ${port}`);
 };

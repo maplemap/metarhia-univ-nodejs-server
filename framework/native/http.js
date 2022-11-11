@@ -1,6 +1,7 @@
 'use strict';
 
 const http = require('node:http');
+const console = require('../../logger.js');
 
 const HEADERS = {
   'X-XSS-Protection': '1; mode=block',
@@ -16,16 +17,14 @@ const receiveArgs = async (req) => {
   const buffers = [];
   for await (const chunk of req) buffers.push(chunk);
   const data = Buffer.concat(buffers).toString();
-  console.log('data', data);
 
   return JSON.parse(data);
 };
 
-module.exports = (routing, port) => {
+module.exports = (routing, port, callback) => {
   http
     .createServer(async (req, res) => {
       res.writeHead(200, HEADERS);
-      console.log('req.method', req.method);
 
       if (req.method !== 'POST') return res.end('"Not found"');
       const {url, socket} = req;
@@ -46,5 +45,5 @@ module.exports = (routing, port) => {
     })
     .listen(port);
 
-  console.log(`API on port ${port}`);
+  callback();
 };

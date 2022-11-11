@@ -1,9 +1,20 @@
+const TRANSPORT = {
+	HTTP: 'http',
+	WS: 'ws',
+}
+const FRAMEWORK = {
+	NATIVE: 'native',
+	FASTIFY: 'fastify',
+	EXPRESS: 'express',
+}
+
 module.exports = {
 	static: {
 		port: 3000,
 	},
 	api: {
 		port: 3002,
+		transport: TRANSPORT.HTTP,
 	},
 	db: {
 		host: '127.0.0.1',
@@ -23,5 +34,5 @@ module.exports = {
 			displayErrors: false,
 		}
 	},
-	transport: 'ws'
+	framework: FRAMEWORK.FASTIFY
 }

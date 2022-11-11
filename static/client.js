@@ -5,6 +5,7 @@ const TRANSPORT_LINK = {
   WS: `ws://${API_HOST}`,
   HTTP: `http://${API_HOST}`,
 };
+let api = {};
 
 const scaffoldApiMaker = (structure, handler) => {
   const api = {};
@@ -70,8 +71,8 @@ const scaffold = (url, structure) => {
 };
 
 (async () => {
-  const api = await scaffold(
-    TRANSPORT_LINK.WS,
+  api = await scaffold(
+    TRANSPORT_LINK.HTTP,
     {
       user: {
         create: ['record'],

@@ -1,37 +1,18 @@
 'use strict';
 
-const fsp = require('node:fs').promises;
-const path = require('node:path');
 const staticServer = require('./static.js');
-const load = require('./load.js');
-const hash = require('./hash.js');
-const logger = require('./logger.js');
 const config = require('./config.js');
-const db = require('./db.js')(config.db);
-const server = require('./' + config.transport + '.js');
-
-const getRouting = async () => {
-  const sandbox = {
-    console: Object.freeze(logger),
-    db: Object.freeze(db),
-    common: { hash },
-  };
-  const routing = {};
-
-  const apiPath = path.join(process.cwd(), './api');
-  const files = await fsp.readdir(apiPath);
-  for (const fileName of files) {
-    if (!fileName.endsWith('.js')) continue;
-
-    const filePath = path.join(apiPath, fileName);
-    const serviceName = path.basename(fileName, '.js');
-    routing[serviceName] = await load(filePath, sandbox);
-  }
-  
-  return routing;
-}
+const {getRouting} = require('./routing');
+const server = require(`./framework/${config.framework}`);
+const console = require('./logger.js');
 
 (async () => {
   staticServer('./static', config.static.port);
-  server(await getRouting(), config.api.port);
+
+  const routing = await getRouting();
+  server(routing, config.api.port, () => {
+    console.log(
+      `Server was running on port ${config.api.port} as '${config.framework}' framework`,
+    );
+  });
 })();
