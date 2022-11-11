@@ -2,17 +2,17 @@
 
 const staticServer = require('./static.js');
 const config = require('./config.js');
-const {getRouting} = require('./routing');
+const {makeRoutes} = require('./routing');
 const server = require(`./framework/${config.framework}`);
 const console = require('./logger.js');
+require('./db.js').init(config.db);
 
 (async () => {
   staticServer('./static', config.static.port);
 
-  const routing = await getRouting();
-  server(routing, config.api.port, () => {
+  server(await makeRoutes(), config.api.port, () => {
     console.log(
-      `Server was running on port ${config.api.port} as '${config.framework}' framework`,
+      `Server was running on port ${config.api.port} as '${config.framework}' framework with '${config.api.transport}' api transport`,
     );
   });
 })();

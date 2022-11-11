@@ -22,6 +22,7 @@ module.exports = async (routing, port, callback) => {
         const [_, name, method] = request.raw.url.substring(1).split('/');
 
         const entity = routing[name];
+        console.log('routing', routing);
         console.log('entity', entity);
         if (!entity) return reply.send('"Not found"');
 

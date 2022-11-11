@@ -1,13 +1,14 @@
-const country = db('country');
+const db = require('../db');
 
-({
-  read(id) {
-    console.log({ db });
+const country = db.crud('country');
+
+module.exports = {
+  async read(id) {
     return country.read(id);
   },
 
-  find(mask) {
+  async find(mask) {
     const sql = 'SELECT * from country where name like $1';
     return country.query(sql, [mask]);
   },
-});
+}
