@@ -7,6 +7,10 @@ const FRAMEWORK = {
 	FASTIFY: 'fastify',
 	EXPRESS: 'express',
 }
+const LOGGER = {
+	NATIVE: 'native',
+	PINO: 'pino',
+}
 
 module.exports = {
 	static: {
@@ -34,5 +38,6 @@ module.exports = {
 			displayErrors: false,
 		}
 	},
-	framework: FRAMEWORK.FASTIFY
+	framework: FRAMEWORK.EXPRESS,
+	logger: LOGGER.PINO
 }

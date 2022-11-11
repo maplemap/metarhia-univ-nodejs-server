@@ -3,7 +3,7 @@
 const http = require('node:http');
 const path = require('node:path');
 const fs = require('node:fs');
-const console = require('./logger.js');
+const console = require('./logger');
 
 module.exports = (root, port) => {
   http.createServer(async (req, res) => {

@@ -1,6 +1,6 @@
 'use strict';
 
-const console = require('../../logger.js');
+const console = require('../../logger');
 
 try {
   require.resolve('express');

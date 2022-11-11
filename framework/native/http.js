@@ -1,7 +1,7 @@
 'use strict';
 
 const http = require('node:http');
-const console = require('../../logger.js');
+const console = require('../../logger');
 
 const HEADERS = {
   'X-XSS-Protection': '1; mode=block',

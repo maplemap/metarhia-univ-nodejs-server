@@ -4,7 +4,7 @@ const staticServer = require('./static.js');
 const config = require('./config.js');
 const {makeRoutes} = require('./routing');
 const server = require(`./framework/${config.framework}`);
-const console = require('./logger.js');
+const console = require('./logger');
 require('./db.js').init(config.db);
 
 (async () => {
